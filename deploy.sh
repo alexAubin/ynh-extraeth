@@ -1,6 +1,6 @@
-TUNIFACE="eth0"
+TUNIFACE="tun0"
 IFACENAME="eth1"
-IP_DNS="89.234.141.65"
+IP_DNS="89.234.141.66" # recursif.arn-fai.net. You should change this according to the DNS resolver used in /etc/resolv.dnsmasq.conf
 
 apt update
 apt install isc-dhcp-server -y
@@ -9,9 +9,9 @@ apt install isc-dhcp-server -y
 ln -s /dev/null /etc/systemd/network/99-default.link
 
 # Configure interface
-echo "allow-hotplug $IFACENAME" >  /etc/network/interfaces.d/$IFACENAME.conf
-echo "iface $IFACENAME inet static"   >> /etc/network/interfaces.d/$IFACENAME.conf
-echo "address 10.0.0.1/24"      >> /etc/network/interfaces.d/$IFACENAME.conf
+echo "allow-hotplug $IFACENAME"     >  /etc/network/interfaces.d/$IFACENAME.conf
+echo "iface $IFACENAME inet static" >> /etc/network/interfaces.d/$IFACENAME.conf
+echo "address 10.0.0.1/24"          >> /etc/network/interfaces.d/$IFACENAME.conf
 
 # Configure dhcpd
 
@@ -78,7 +78,7 @@ systemctl enable ynh-extraeth
 
 mkdir /etc/yunohost/hooks.d
 mkdir /etc/yunohost/hooks.d/post_iptable_rules
-cat << EOF /etc/yunohost/hooks.d/post_iptable_rules/99-extraeth
+cat << EOF > /etc/yunohost/hooks.d/post_iptable_rules/99-extraeth
 #!/bin/bash
 
 if ip a | grep -q "$IFACENAME:"
