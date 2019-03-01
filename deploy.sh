@@ -1,6 +1,7 @@
 TUNIFACE="tun0"
 IFACENAME="eth1"
 IP_DNS="89.234.141.66" # recursif.arn-fai.net. You should change this according to the DNS resolver used in /etc/resolv.dnsmasq.conf
+# This script also currently assumes that /etc/network/intefaces includes /etc/network/interfaces.d/*
 
 apt update
 apt install isc-dhcp-server -y
