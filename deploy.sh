@@ -38,7 +38,7 @@ echo "INTERFACESv4='$IFACENAME'" >> /etc/default/isc-dhcp-server
 cat << EOF > /usr/local/bin/ynh-extraeth
 #!/bin/bash
 
-iptables -t nat -A POSTROUTING -s 10.0.0.1/24 -o $TUNIFACE -j MASQUERADE
+iptables -t nat -A POSTROUTING -o $TUNIFACE -j MASQUERADE
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
 case "\$1" in
